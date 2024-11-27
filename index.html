@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - By Bhagyawant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .result span {
+            font-weight: bold;
+        }
+
+        .suggestions {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+            input[type="number"], button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>BMI Calculator - By Bhagyawant</h1>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" placeholder="Enter weight in kg" step="0.1">
+
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" placeholder="Enter height in cm" step="0.1">
+
+        <button onclick="calculateBMI()">Calculate BMI</button>
+
+        <div class="result" id="bmiResult"></div>
+
+        <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            // Get input values
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value);
+
+            // Validate inputs
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                alert("Please enter valid values for weight and height.");
+                return;
+            }
+
+            // Convert height from cm to meters
+            height = height / 100;
+
+            // Calculate BMI
+            let bmi = weight / (height * height);
+            bmi = bmi.toFixed(2); // Round to 2 decimal places
+
+            // Display BMI result
+            document.getElementById('bmiResult').innerHTML = `<p>Your BMI is: <span>${bmi}</span></p>`;
+
+            // Provide suggestions based on BMI
+            let suggestions = '';
+
+            if (bmi < 18.5) {
+                suggestions = `<p><strong>Underweight:</strong> You need to gain some weight. Focus on eating a balanced diet with more calories and consider strength training exercises.</p>`;
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                suggestions = `<p><strong>Normal weight:</strong> Great! Keep up the good work by maintaining a balanced diet and regular physical activity.</p>`;
+            } else if (bmi >= 25 && bmi < 29.9) {
+                suggestions = `<p><strong>Overweight:</strong> Consider adopting a healthy eating plan and increasing physical activity to manage your weight. It's important to stay active!</p>`;
+            } else if (bmi >= 30) {
+                suggestions = `<p><strong>Obese:</strong> It's important to consult with a healthcare provider to develop a plan for losing weight safely. Regular physical activity and a healthy, balanced diet can help you achieve this goal.</p>`;
+            }
+
+            document.getElementById('suggestions').innerHTML = suggestions;
+        }
+    </script>
+
+</body>
+</html>
